@@ -24,12 +24,14 @@ app.post('/order', (req, res) => {
   const body = req.body;
   console.log('body is:::::', body);
 
-  if (!body.eventName === 'order.completed') {
+  if (body.eventName && !body.eventName === 'order.completed') {
     res.status(204).send({});
   }
+  res.json(body);
+  // const items = body.content.items;
+  // const ids = items.map((item) => item.id);
 
-  const items = body.content.items;
-  const ids = items.map((item) => item.id);
+  // now trigger a netlify build
 });
 
 app.listen(port, () =>
